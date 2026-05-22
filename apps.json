@@ -1,0 +1,22 @@
+{
+  "works": [
+    {
+      "id": "musen-honyaku",
+      "title": "無線翻訳機",
+      "icon": "📻",
+      "category": "fun",
+      "url": "https://hondaporta-ship-it.github.io/musen-honyaku/",
+      "by": "AI同好会",
+      "description": "警備無線風に翻訳する"
+    },
+    {
+      "id": "kakure-taiso-event",
+      "title": "隠れイベント体操",
+      "icon": "🥷",
+      "category": "fun",
+      "url": "https://hondaporta-ship-it.github.io/kakure-taiso-event/",
+      "by": "AI同好会",
+      "description": "待機中、バレずに全身ほぐす"
+    }
+  ]
+}

@@ -7,7 +7,8 @@
       "category": "fun",
       "url": "https://hondaporta-ship-it.github.io/musen-honyaku/",
       "by": "AI同好会",
-      "description": "警備無線風に翻訳する"
+      "description": "警備無線風に翻訳する",
+      "createdAt": "2026-05-10"
     },
     {
       "id": "kakure-taiso-event",
@@ -16,7 +17,8 @@
       "category": "fun",
       "url": "https://hondaporta-ship-it.github.io/kakure-taiso-event/",
       "by": "AI同好会",
-      "description": "待機中、バレずに全身ほぐす"
+      "description": "待機中、バレずに全身ほぐす",
+      "createdAt": "2026-05-22"
     }
   ]
 }

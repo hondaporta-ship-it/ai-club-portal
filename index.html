@@ -46,6 +46,8 @@
  .sec::after{content:"";flex:1;height:1px;background:var(--line);}
 
  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+
+ /* NEW バッジ（7日以内） */
  .tile{text-decoration:none;color:inherit;position:relative;overflow:hidden;
  background:linear-gradient(180deg,var(--bg2),#0b0f15);border:1px solid var(--line);border-radius:16px;padding:16px 14px;
  transition:transform .15s,border-color .15s,box-shadow .15s;opacity:0;animation:rise .5s forwards;}
@@ -55,23 +57,41 @@
  .tile.useful{--accent:var(--blue);border-top:2px solid var(--blue);}
  .tile .cat{position:absolute;top:11px;right:11px;font-family:"JetBrains Mono",monospace;font-size:8px;font-weight:700;padding:2px 6px;border-radius:5px;color:#0a0d12;}
  .tile.fun .cat{background:var(--amber);} .tile.useful .cat{background:var(--blue);}
+ .tile .new-badge{position:absolute;top:11px;left:11px;font-family:"JetBrains Mono",monospace;font-size:8px;font-weight:800;padding:2px 6px;border-radius:5px;color:#0a0d12;background:#ff5a4d;letter-spacing:.04em;}
  .tile .ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;background:rgba(255,255,255,.04);border:1px solid var(--line);margin-bottom:11px;}
- .tile h2{font-family:"Noto Serif JP",serif;font-size:16px;font-weight:900;line-height:1.3;margin-bottom:6px;}
+ .tile h2{font-family:"Noto Serif JP",serif;font-size:16px;font-weight:900;line-height:1.3;margin-bottom:4px;}
  .tile .by{font-family:"JetBrains Mono",monospace;font-size:9.5px;}
  .tile.fun .by{color:var(--amber);} .tile.useful .by{color:var(--blue);}
+ .tile .date{font-family:"JetBrains Mono",monospace;font-size:8.5px;color:#3a4a5a;margin-top:3px;letter-spacing:.04em;}
 
  .slot{grid-column:1 / -1;display:flex;align-items:center;justify-content:center;gap:10px;
  border:1.5px dashed var(--line);border-radius:16px;padding:20px;color:var(--muted);font-size:13px;font-weight:700;
  background:rgba(255,255,255,.012);opacity:0;animation:rise .5s forwards;}
  .slot .plus{font-size:20px;color:var(--amber);}
 
- /* ローディング */
- .loading{text-align:center;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);
- padding:20px;letter-spacing:.08em;opacity:0;animation:rise .4s .3s forwards;}
- .loading::after{content:"...";animation:dots 1.2s infinite;}
- @keyframes dots{0%{content:".";}33%{content:"..";}66%{content:"...";}100%{content:"."}}
+ /* ── 追加方法バナー ── */
+ .add-banner{
+   margin-top:28px;
+   background:rgba(255,176,0,.05);border:1px solid rgba(255,176,0,.2);
+   border-radius:14px;padding:16px 18px;
+   opacity:0;animation:rise .6s .6s forwards;
+ }
+ .add-banner .ab-title{
+   font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;
+   color:var(--amber);margin-bottom:8px;
+ }
+ .add-banner p{font-size:13px;line-height:1.75;color:var(--muted);margin-bottom:12px;}
+ .add-banner p b{color:var(--ink);}
+ .add-banner .ab-link{
+   display:inline-flex;align-items:center;gap:6px;
+   font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;
+   color:var(--amber);text-decoration:none;
+   border:1px solid rgba(255,176,0,.3);border-radius:8px;padding:7px 12px;
+   background:rgba(255,176,0,.06);transition:background .2s;
+ }
+ .add-banner .ab-link:hover{background:rgba(255,176,0,.12);}
 
- .foot{margin-top:34px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#46505f;line-height:1.9;letter-spacing:.03em;opacity:0;animation:rise .6s .7s forwards;}
+ .foot{margin-top:24px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#46505f;line-height:1.9;letter-spacing:.03em;opacity:0;animation:rise .6s .75s forwards;}
  .foot b{color:var(--amber);}
  .pill{display:inline-block;margin-top:12px;font-size:11.5px;color:var(--ink);font-family:"Zen Kaku Gothic New",sans-serif;border:1px solid var(--line);border-radius:20px;padding:8px 16px;line-height:1.5;background:rgba(255,176,0,.06);}
 </style>
@@ -90,16 +110,22 @@
    <div><span class="n">∞</span> <span class="l">COMING</span></div>
  </div>
 
- <!-- 役に立つ系 -->
  <div class="sec useful s1"><span class="tag">USEFUL</span><span class="jp">役に立つ系</span></div>
- <div class="grid" id="gUseful">
-   <div class="loading">LOADING</div>
- </div>
+ <div class="grid" id="gUseful"></div>
 
- <!-- おふざけ系 -->
  <div class="sec fun s2"><span class="tag">FUN</span><span class="jp">おふざけ系</span></div>
- <div class="grid" id="gFun">
-   <div class="loading">LOADING</div>
+ <div class="grid" id="gFun"></div>
+
+ <!-- ── 追加方法バナー ── -->
+ <div class="add-banner">
+   <div class="ab-title">➕ SUBMIT YOUR WORK</div>
+   <p>自分でアプリを作ったら、ここに載せられます。<br>
+   <b>AIと一緒に作ったものなら何でもOK</b> — 役立つものでも、ふざけたものでも。</p>
+   <a class="ab-link"
+      href="https://github.com/hondaporta-ship-it/ai-club-portal/blob/main/ADDING.md"
+      target="_blank" rel="noopener">
+     📋 追加方法を見る（ADDING.md）
+   </a>
  </div>
 
  <div class="foot">
@@ -111,20 +137,36 @@
  </div><!-- /wrap -->
 
 <script>
-// apps.json を読み込んでカードを動的生成
-// アプリ追加は apps.json を編集するだけでOK
+const ADDING_URL = 'https://github.com/hondaporta-ship-it/ai-club-portal/blob/main/ADDING.md';
+const NEW_DAYS = 14; // 何日以内を "NEW" とみなすか
+
+function isNew(dateStr) {
+  if (!dateStr) return false;
+  const diff = (Date.now() - new Date(dateStr)) / 86400000;
+  return diff <= NEW_DAYS;
+}
+
+function fmtDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
+}
 
 let delay = 0;
 
 function makeCard(app) {
   delay += 80;
-  const cat = app.category; // "fun" or "useful"
+  const cat = app.category;
   const catLabel = cat === 'fun' ? 'FUN' : 'USEFUL';
+  const newBadge = isNew(app.createdAt) ? '<span class="new-badge">NEW</span>' : '';
+  const dateStr  = app.createdAt ? `<div class="date">${fmtDate(app.createdAt)}</div>` : '';
   return `<a class="tile ${cat}" href="${app.url}" style="animation-delay:${delay}ms" target="_blank" rel="noopener">
+    ${newBadge}
     <span class="cat">${catLabel}</span>
     <div class="ic">${app.icon}</div>
     <h2>${app.title}</h2>
     <div class="by">by ${app.by}</div>
+    ${dateStr}
   </a>`;
 }
 
@@ -134,35 +176,39 @@ function makeSlot(cat) {
   return `<div class="slot" style="animation-delay:${delay}ms"><span class="plus">＋</span>${msg}</div>`;
 }
 
-function render(works) {
-  const useful = works.filter(w => w.category === 'useful');
-  const fun    = works.filter(w => w.category === 'fun');
+// ★ 新着順ソート（createdAt 降順）
+function sortNewest(arr) {
+  return [...arr].sort((a, b) => {
+    const da = a.createdAt ? new Date(a.createdAt) : new Date(0);
+    const db = b.createdAt ? new Date(b.createdAt) : new Date(0);
+    return db - da; // 新しい順
+  });
+}
 
-  // 作品数・メーカー数カウント
+function render(works) {
+  // カウンター
   document.getElementById('cWorks').textContent  = works.length;
   const makers = [...new Set(works.map(w => w.by))].length;
   document.getElementById('cMakers').textContent = makers;
 
-  // グリッド描画
-  const gu = document.getElementById('gUseful');
-  const gf = document.getElementById('gFun');
+  // 新着順にソートしてからカテゴリ分け
+  const sorted  = sortNewest(works);
+  const useful  = sorted.filter(w => w.category === 'useful');
+  const fun     = sorted.filter(w => w.category === 'fun');
 
-  gu.innerHTML = useful.map(makeCard).join('') + makeSlot('useful');
-  gf.innerHTML = fun.map(makeCard).join('') + makeSlot('fun');
+  document.getElementById('gUseful').innerHTML = useful.map(makeCard).join('') + makeSlot('useful');
+  document.getElementById('gFun').innerHTML    = fun.map(makeCard).join('')    + makeSlot('fun');
 }
 
-// apps.json 取得（キャッシュ無効化パラメータ付き）
+// apps.json 取得（キャッシュ無効化）
 fetch('./apps.json?v=' + Date.now())
-  .then(r => {
-    if (!r.ok) throw new Error('fetch failed');
-    return r.json();
-  })
+  .then(r => { if (!r.ok) throw new Error(); return r.json(); })
   .then(data => render(data.works))
   .catch(() => {
-    // フェッチ失敗時のフォールバック（ハードコード）
+    // フォールバック（フェッチ失敗時）
     render([
-      {title:"無線翻訳機",     icon:"📻", category:"fun",    url:"https://hondaporta-ship-it.github.io/musen-honyaku/",       by:"AI同好会"},
-      {title:"隠れイベント体操", icon:"🥷", category:"fun",    url:"https://hondaporta-ship-it.github.io/kakure-taiso-event/",  by:"AI同好会"},
+      {title:"隠れイベント体操", icon:"🥷", category:"fun",    url:"https://hondaporta-ship-it.github.io/kakure-taiso-event/",  by:"AI同好会", createdAt:"2026-05-22"},
+      {title:"無線翻訳機",       icon:"📻", category:"fun",    url:"https://hondaporta-ship-it.github.io/musen-honyaku/",       by:"AI同好会", createdAt:"2026-05-10"},
     ]);
   });
 </script>
